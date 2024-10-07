@@ -69,7 +69,8 @@ pca_data <- data.frame(PC1 = pca_result$x[, 1],
     interactive_plot <- plot_ly(pca_data, x = ~PC1, y = ~PC2, z = ~PC3,
                                 color = ~label, colors = RColorBrewer::brewer.pal(n = 10, name = "Paired"),
                                 type = 'scatter3d', mode = 'markers',
-                                marker = list(size = 8))
+                                marker = list(size = 8,
+                                              line = list(width = 2, color = 'black')))
     interactive_plot <- layout(interactive_plot,
                           title = "3D PCA of MNIST Dataset",
                           scene = list(xaxis = list(title = 'Principal Component 1'),
