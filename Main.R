@@ -1,4 +1,3 @@
-# Block 1: Load Necessary Libraries
 library(data.table)
 library(ggplot2)
 library(plotly)
@@ -15,16 +14,16 @@ if (!file.exists(data_filename)) {
 
 mnist_data <- fread(data_filename)
 
-# Block 3: Sample a Subset for Efficiency
+# Sample a Subset for Efficiency
 set.seed(263)
 sample_indices <- sample(1:nrow(mnist_data), 15000)
 mnist_sample <- mnist_data[sample_indices, ]
 
-# Block 4: Separate Labels and Image Data
+# Separate Labels and Image Data
 labels <- mnist_sample$V1
 images <- as.matrix(mnist_sample[, -1, with = FALSE])
 
-# Block 4a: Remove Zero-Variance Columns
+# Remove Zero-Variance Columns
 variances <- apply(images, 2, var)
 zero_var_cols <- which(variances == 0)
 
@@ -36,22 +35,22 @@ if(length(zero_var_cols) > 0) {
   cat("No zero-variance columns found.\n")
 }
 
-# Block 5: Perform PCA
+# Perform PCA
 pca_result <- prcomp(images_filtered, center = TRUE, scale. = TRUE)
 
-# Block 6: Plot Variance Explained by Principal Components
+# Plot Variance Explained by Principal Components
 explained_variance <- pca_result$sdev^2
 plot(explained_variance, type = "l", main = "Scree Plot", 
      xlab = "Principal Component", ylab = "Variance Explained")
 
-# Block 7: Interactive Visualization of Principal Components
-# Create a data frame with the first few principal components and labels.
+# Interactive Visualization of Principal Components
+# components and labels.
 pca_data <- data.frame(PC1 = pca_result$x[, 1],
                        PC2 = pca_result$x[, 2],
                        PC3 = pca_result$x[, 3],
                        label = as.factor(labels))
 
-# Set plot_type to "2D" or "3D"
+# Set plot_type to 2D or 3D
   plot_type <- "3D"
   
   if (plot_type == "2D") {  # 2d plot 
